@@ -1,0 +1,44 @@
+# 防守型多资产配置：红利 30% / 十年国债 50% / 黄金 20%
+# 用法：
+#   python run_defensive.py backtest
+#   python run_defensive.py init 1000000
+#   python run_defensive.py mark
+#   python run_defensive.py signal
+#   python run_defensive.py rebalance
+
+name: "红利/国债/黄金 30/50/20"
+
+etf:
+  510880: "红利ETF"
+  511260: "十年国债ETF"
+  518880: "黄金ETF"
+
+weights:
+  510880: 0.30
+  511260: 0.50
+  518880: 0.20
+
+rebalance:
+  frequency: "quarterly"   # 每季度检查一次
+  band: 0.05               # 单一资产偏离目标 5 个百分点才动手
+
+cost:
+  commission: 0.0002       # 万2
+  slippage: 0.0002         # 2bp
+
+data:
+  cache_dir: "data"
+  start_date: "2017-08-24"
+
+risk:
+  max_single_weight: 0.60  # 单一资产上限（防止国债腿过重）
+
+# 波动率目标叠加层（2026-10-18 研究验证）：
+#   月末按过去 60 日组合波动，把总仓位缩到 5%/vol；缩减部分放现金/货基。
+#   2013/2017/2019 三个样本都降回撤、提夏普，年化基本不变。
+risk_overlay:
+  enabled: true
+  vol_target: 0.05
+  vol_lookback: 60
+  min_exposure: 0.50       # 最低仓位，避免全现金
+  cash_yield: 0.015        # 现金部分年化收益

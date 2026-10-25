@@ -1,0 +1,42 @@
+# A股低频多因子 —— 核心参数
+universe:
+  min_list_days: 120
+  min_avg_amount: 5000000   # 近20日日均成交额下限（元）
+  min_total_mv: 2000000000  # 总市值下限（元）= 20亿
+  exclude_st: true
+
+data:
+  start_date: "2021-01-01"
+  end_date: null            # null = 今天
+  cache_dir: "data"
+  adjust: "hfq"
+
+factors:
+  weights:
+    ln_mv: -1.0             # 市值越小越好
+    momentum_20: 0.50       # 20日动量
+    volatility_20: -0.40    # 波动率越低越好
+    turnover_20: -0.45      # 换手越低越好
+    ep: 0.85                # 盈利收益率 1/PE，越高越便宜
+    roe: 0.65               # ROE≈PB/PE，质量
+  winsorize: 0.02
+
+portfolio:
+  n_stocks: 25
+  weight: "equal"
+  rebalance: "month_end"
+
+cost:
+  commission: 0.00025       # 万2.5 双边
+  stamp_duty: 0.0005        # 万5 仅卖出
+  slippage: 0.0015          # 单边滑点 0.15%
+
+risk:
+  drawdown_reduce: 0.15
+  drawdown_halt: 0.20
+
+backtest:
+  start_date: "2021-01-01"
+  end_date: null
+  benchmark: "000300"
+  max_stocks: null          # 全市场

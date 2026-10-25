@@ -1,0 +1,58 @@
+# 震荡盘 · 稳健改进版（全市场实验后）
+# 核心改动 vs 初版:
+#   1) 市值下限 20亿 → 50亿（最大提升项：+6% → +24%）
+#   2) 剔除北交所/非主流板（流动性）
+#   3) n=25 等权
+#   4) 行业约束 15%（可选，略降收益换分散）
+#   5) 不用 PE/ROE —— 本样本稳健地拖累（见 实验报告.md）
+# 用法:
+#   python run_regime_check.py
+#   python run_backtest.py config_choppy_v2.yaml
+#   python run_signals.py config_choppy_v2.yaml
+
+universe:
+  min_list_days: 120
+  min_avg_amount: 10000000    # 20日日均成交额 ≥ 1000万
+  min_total_mv: 5000000000    # 总市值 ≥ 50亿
+  exclude_st: true
+  exclude_prefixes: ["92", "83", "43", "87", "88"]  # 北交所等
+
+data:
+  start_date: "2021-01-01"
+  end_date: null
+  cache_dir: "data"
+
+factors:
+  use_valuation: false
+  weights:
+    ln_mv: -1.0
+    momentum_20: 0.55
+    volatility_20: -0.45
+    turnover_20: -0.50
+    ep: 0.0
+    roe: 0.0
+  winsorize: 0.02
+
+portfolio:
+  n_stocks: 25
+  weight: "equal"
+  rebalance: "month_end"
+  max_industry_weight: 0.15   # 仅当有 industry_map 时生效
+
+cost:
+  commission: 0.00025
+  stamp_duty: 0.0005
+  slippage: 0.0015
+
+risk:
+  drawdown_reduce: 0.15
+  drawdown_halt: 0.20
+
+backtest:
+  start_date: "2021-01-01"
+  end_date: null
+  benchmark: "000300"
+  max_stocks: null
+  only_regime: "震荡"
+  include_delisted: true       # 加入 2021+ 退市股，修正幸存者偏差
+  point_in_time_st: false      # 不用「当前 ST 名单」过滤历史（那是未来信息）

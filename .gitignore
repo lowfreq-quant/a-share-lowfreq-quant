@@ -1,0 +1,30 @@
+# ---- data & generated outputs (never commit) ----
+data/
+output/
+output_audit/
+output_backup_*/
+*.parquet
+*.pkl
+
+# ---- python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- os / ide ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+# ---- secrets ----
+.env
+.env.*
+secrets/
+*.key

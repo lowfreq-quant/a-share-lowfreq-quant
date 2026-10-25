@@ -1,0 +1,44 @@
+# 熊市/防守组合 —— 默认【全程常持】，熊市自动加债
+# 用法: python run_bear_backtest.py
+# 注意: 不要 only_regime=熊市 —— 实测仅熊市持有防守资产会亏（追进去跌、切出来错过修复）
+
+universe: {}
+
+data:
+  start_date: "2020-01-01"
+  end_date: null
+  cache_dir: "data"
+  adjust: "hfq"            # 回测用后复权（含分红/拆分）；实时下单在 paper_bear.py 用原始价
+
+etf:
+  510880: "红利ETF"
+  512890: "红利低波ETF"
+  511260: "十年国债ETF"
+
+# 常持权重（夏普最优组：30%红利 + 70%国债）
+weights:
+  510880: 0.15
+  512890: 0.15
+  511260: 0.70
+
+# 确认熊市后，进一步加债（覆盖 weights）
+weights_bear:
+  510880: 0.05
+  512890: 0.05
+  511260: 0.90
+
+cost:
+  commission: 0.00025
+  stamp_duty: 0.0
+  slippage: 0.001
+
+risk:
+  drawdown_reduce: 0.12
+  drawdown_halt: 0.18
+
+backtest:
+  start_date: "2020-01-01"
+  end_date: null
+  benchmark: "000300"
+  only_regime: null
+  shift_on_regime: "熊市"   # 市况=熊市 时切换到 weights_bear
