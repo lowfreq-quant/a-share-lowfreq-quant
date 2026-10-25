@@ -1,0 +1,38 @@
+# NOTICE
+
+本项目以 **MIT License** 发布，完整文本见 [LICENSE](LICENSE)。
+
+## 1. 第三方依赖
+
+本仓库**不复制、不打包**第三方源码；依赖通过 `pip install -r requirements.txt` 安装。直接依赖及许可证如下：
+
+| 依赖 | 许可证 | 上游 |
+|---|---|---|
+| akshare | MIT | https://github.com/akfamily/akshare |
+| pandas | BSD-3-Clause | https://github.com/pandas-dev/pandas |
+| numpy | BSD-3-Clause | https://github.com/numpy/numpy |
+| pyarrow | Apache-2.0 | https://github.com/apache/arrow |
+| matplotlib | PSF License（Matplotlib License） | https://github.com/matplotlib/matplotlib |
+| PyYAML | MIT | https://github.com/yaml/pyyaml |
+| tqdm | MPL-2.0 AND MIT | https://github.com/tqdm/tqdm |
+
+说明：
+
+- 许可证全文在各依赖的发行包中；升级依赖版本时，以该版本自带的 LICENSE 为准。
+- 如果你再分发本项目的**打包产物/二进制**，请保留上述依赖各自的版权与许可声明。
+- 本项目与上述依赖的维护者无隶属关系，仅为使用/引用关系。
+
+## 2. 数据
+
+- 本仓库**不包含行情数据**；`data/` 已在 `.gitignore` 中排除。
+- 代码通过 `akshare` 从公开接口下载数据（新浪、腾讯、东方财富等）；数据的版权和条款归数据提供方。
+- 使用者需自行遵守数据源的服务条款；**不要重新分发 `data/` 缓存**。
+- `research/*.csv`、`output_audit/*.json` 等是回测汇总/派生结果，不包含原始行情。
+
+## 3. 免责声明
+
+本项目仅供研究与学习，不构成投资建议。完整风险提示见 [DISCLAIMER.md](DISCLAIMER.md)。
+
+## 4. 商标
+
+`akshare`、`pandas`、`numpy`、`pyarrow`、`matplotlib`、`PyYAML`、`tqdm` 等名称/商标归各自所有者；本项目仅作引用，不代表其官方或背书。

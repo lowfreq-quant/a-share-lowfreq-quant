@@ -134,7 +134,7 @@ python research/corrected_experiment.py --quick --no-hfq
 
 ## 许可证
 
-[MIT](LICENSE)。依赖库：`akshare`、`pandas`、`numpy`、`matplotlib`、`PyYAML`、`tqdm`，请遵守各自许可证。
+[MIT](LICENSE)。第三方依赖及许可证见 [NOTICE](NOTICE)；数据不随仓库分发，使用前请阅读 [DISCLAIMER.md](DISCLAIMER.md)。
 
 ## 致谢
 
